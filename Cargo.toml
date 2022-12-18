@@ -27,3 +27,6 @@ tracing = "0.1.37"
 tracing-subscriber = "0.2"
 regex = "1"
 dotenv = "0.15"
+
+[patch.crates-io]
+dashmap = { git = "https://github.com/Yunichie/dashmap", branch = "no-rust-toolchain" }
