@@ -16,7 +16,8 @@ use serenity::{
     },
     prelude::*,
 };
-use std::env;
+use anyhow::anyhow;
+use shuttle_secrets::SecretStore;
 
 struct Bot;
 
@@ -71,9 +72,14 @@ impl EventHandler for Bot {
 }
 
 #[shuttle_service::main]
-async fn serenity() -> shuttle_service::ShuttleSerenity {
-    dotenv::dotenv().expect("Gagal memuat file .env");
-    let token = env::var("DISCORD_TOKEN").expect("Tidak ada token di .env");
+async fn serenity(
+    #[shuttle_secrets::Secrets] secret_store: SecretStore
+) -> shuttle_service::ShuttleSerenity {
+    let token = if let Some(token) = secret_store.get("DISCORD_TOKEN") {
+        token
+    } else {
+        return Err(anyhow!("'DISCORD_TOKEN' was not found").into());
+    };
 
     // Set gateway intents, which decides what events the bot will be notified about
     //let intents = GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
