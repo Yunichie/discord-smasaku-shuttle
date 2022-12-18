@@ -16,7 +16,7 @@ use serenity::{
     },
     prelude::*,
 };
-use anyhow::anyhow;
+use anyhow::Context as _;
 use shuttle_secrets::SecretStore;
 
 struct Bot;
@@ -75,11 +75,7 @@ impl EventHandler for Bot {
 async fn serenity(
     #[shuttle_secrets::Secrets] secret_store: SecretStore
 ) -> shuttle_service::ShuttleSerenity {
-    let token = if let Some(token) = secret_store.get("DISCORD_TOKEN") {
-        token
-    } else {
-        return Err(anyhow!("'DISCORD_TOKEN' was not found").into());
-    };
+    let token = secret_store.get("DISCORD_TOKEN").context("DISCORD_TOKEN was not found")?;
 
     // Set gateway intents, which decides what events the bot will be notified about
     //let intents = GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
