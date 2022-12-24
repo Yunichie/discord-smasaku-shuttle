@@ -77,9 +77,6 @@ async fn serenity(
 ) -> shuttle_service::ShuttleSerenity {
     let token = secret_store.get("DISCORD_TOKEN").context("DISCORD_TOKEN was not found")?;
 
-    // Set gateway intents, which decides what events the bot will be notified about
-    //let intents = GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
-
     let mut client = Client::builder(&token, GatewayIntents::empty())
         .event_handler(Bot)
         .await
