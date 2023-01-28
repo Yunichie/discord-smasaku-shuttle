@@ -245,10 +245,11 @@ Contoh: 2021/2022 atau cukup 2021.
                                         ("Media Sosial", data[3].to_owned(), false),
                                     ])
                                     .thumbnail(&user.avatar_url().unwrap())
-                                    .image("https://media.discordapp.net/attachments/895265138565865502/1019552086444232755/welcome.jpg")
+                                    .image("attachment://welcome.jpg")
                                     .footer(|f| f.text(&user.tag()))
                                     .timestamp(Timestamp::now())
                                 })
+                                .add_file("./image/welcome.jpg")
                             })
                         })
                 .await;

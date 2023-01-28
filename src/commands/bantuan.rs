@@ -21,6 +21,7 @@ pub fn register(command: &mut CreateApplicationCommand) -> &mut CreateApplicatio
 pub async fn run(interaction: Interaction, ctx: &Context) {
     let interaction = interaction.application_command().unwrap();
     let user = &interaction.user;
+    let imgs = vec!["./image/bantuan/perkenalan-slash.png", "./image/bantuan/perkenalan-modal.png"];
 
     let bantuan = interaction
     .create_interaction_response(&ctx.http, |resp| {
@@ -64,11 +65,12 @@ pub async fn run(interaction: Interaction, ctx: &Context) {
                     "#, false)
                 ])
                 .thumbnail(ctx.cache.current_user().avatar_url().unwrap())
-                .image("https://media.discordapp.net/attachments/1024284784077320255/1032675495575302204/unknown.png")
-                .image("https://media.discordapp.net/attachments/1024284784077320255/1039201766589337630/perkenalan-modal.png?width=400&height=480")
+                .image("perkenalan-slash.png")
+                .image("perkenalan-modal.png")
                 .footer(|f| f.icon_url(&user.avatar_url().unwrap()).text(&user.tag()))
                 .timestamp(Timestamp::now())
             })
+            .add_files(imgs)
         })
     }).await;
 
