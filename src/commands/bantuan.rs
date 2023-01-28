@@ -21,7 +21,7 @@ pub fn register(command: &mut CreateApplicationCommand) -> &mut CreateApplicatio
 pub async fn run(interaction: Interaction, ctx: &Context) {
     let interaction = interaction.application_command().unwrap();
     let user = &interaction.user;
-    let imgs = vec!["./image/bantuan/perkenalan-slash.png", "./image/bantuan/perkenalan-modal.png"];
+    //let imgs = vec!["./image/bantuan/perkenalan-slash.png", "./image/bantuan/perkenalan-modal.png"];
 
     let bantuan = interaction
     .create_interaction_response(&ctx.http, |resp| {
@@ -66,11 +66,11 @@ pub async fn run(interaction: Interaction, ctx: &Context) {
                 ])
                 .thumbnail(ctx.cache.current_user().avatar_url().unwrap())
                 .image("attachment://perkenalan-slash.png")
-                .image("attachment://perkenalan-modal.png")
+                //.image("attachment://perkenalan-modal.png")
                 .footer(|f| f.icon_url(&user.avatar_url().unwrap()).text(&user.tag()))
                 .timestamp(Timestamp::now())
             })
-            .add_files(imgs)
+            .add_file("./image/bantuan/perkenalan-slash.png")
         })
     }).await;
 
