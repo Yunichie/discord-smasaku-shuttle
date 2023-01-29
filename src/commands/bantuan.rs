@@ -65,12 +65,14 @@ pub async fn run(interaction: Interaction, ctx: &Context) {
                     "#, false)
                 ])
                 .thumbnail(ctx.cache.current_user().avatar_url().unwrap())
-                .image("attachment://perkenalan-slash.png")
+                .image("https://media.discordapp.net/attachments/1024284784077320255/1032675495575302204/unknown.png")
+                .image("https://media.discordapp.net/attachments/1024284784077320255/1039201766589337630/perkenalan-modal.png?width=400&height=480")
+                //.image("attachment://perkenalan-slash.png")
                 //.image("attachment://perkenalan-modal.png")
                 .footer(|f| f.icon_url(&user.avatar_url().unwrap()).text(&user.tag()))
                 .timestamp(Timestamp::now())
             })
-            .add_file("./image/bantuan/perkenalan-slash.png")
+            //.add_file(imgs)
         })
     }).await;
 
