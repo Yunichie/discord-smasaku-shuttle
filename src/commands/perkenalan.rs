@@ -170,11 +170,12 @@ pub async fn run(interaction: Interaction, ctx: &Context) {
         // data[2] = angkatan
         // data[3] = medsos
 
+        let alumni = Regex::new(r"^(alumni)$").unwrap();
         let xi_xii = Regex::new(r"^(XI|XII)\s(MIPA|IPS)\s([0-9]|1[0-2])$").unwrap();
         let x = Regex::new(r"^(X)\s([0-9]|1[0-2])$").unwrap();
         let regex_angkatan = Regex::new(r#"^(([0-9]){4})|(^([0-9]){4}/([0-9]){4})$"#).unwrap();
 
-        if !(x.is_match(&data[1].to_uppercase())) && !(xi_xii.is_match(&data[1].to_uppercase())) {
+        if !(x.is_match(&data[1].to_uppercase())) && !(xi_xii.is_match(&data[1].to_uppercase())) && !(alumni.is_match(&data[1].to_lowercase())) {
             // Kirim embed error!
             let kls_err = response
                 .create_interaction_response(&ctx.http, |resp| {
@@ -190,6 +191,9 @@ Format Kelas yang benar:
 **X [1-12]**.
 
 Contoh: X 3, XI MIPA 3
+
+Untuk alumni:
+**Alumni**.
                     "#
                                     )
                                     .footer(|f| f.text("[] tidak perlu dimasukkan."))
