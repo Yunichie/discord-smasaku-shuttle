@@ -71,10 +71,10 @@ impl EventHandler for Bot {
     }
 }
 
-#[shuttle_service::main]
+#[shuttle_runtime::main]
 async fn serenity(
     #[shuttle_secrets::Secrets] secret_store: SecretStore
-) -> shuttle_service::ShuttleSerenity {
+) -> shuttle_serenity::ShuttleSerenity {
     let token = secret_store.get("DISCORD_TOKEN").context("DISCORD_TOKEN was not found")?;
 
     let mut client = Client::builder(&token, GatewayIntents::empty())
@@ -86,5 +86,5 @@ async fn serenity(
         println!("Kesalahan memulai klien: {:#?}", why);
     }
 
-    Ok(client)
+    Ok(client.into())
 }
